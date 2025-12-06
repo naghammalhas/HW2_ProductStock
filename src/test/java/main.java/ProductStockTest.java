@@ -30,7 +30,7 @@ class ProductStockTest {
 
     @BeforeEach
     void setUp() {
-        // Initial default object for most tests
+       
         stock = new ProductStock("P-123", "WH-1-A3", 50, 10, 100);
     }
 
@@ -39,10 +39,7 @@ class ProductStockTest {
         System.out.println("Test completed. Current state: " + stock);
     }
 
-    // -----------------------------------------------------------------
-    // Constructor tests
-    // -----------------------------------------------------------------
-
+   
     @Test
     @Tag("sanity")
     @DisplayName("Constructor should create valid ProductStock with correct fields")
@@ -91,9 +88,7 @@ class ProductStockTest {
                 () -> new ProductStock("P-1", "LOC", 200, 0, 100));
     }
 
-    // -----------------------------------------------------------------
-    // Location change
-    // -----------------------------------------------------------------
+  
 
     @Test
     @DisplayName("changeLocation should update location when valid")
@@ -111,10 +106,7 @@ class ProductStockTest {
                 () -> stock.changeLocation("   "));
     }
 
-    // -----------------------------------------------------------------
-    // addStock – normal, boundary, error + Parameterized
-    // -----------------------------------------------------------------
-
+    
     @ParameterizedTest
     @ValueSource(ints = {1, 10, 25})
     @DisplayName("addStock should increase onHand by given positive amount (parameterized)")
@@ -144,10 +136,7 @@ class ProductStockTest {
         assertThrows(IllegalStateException.class, () -> stock.addStock(60));
     }
 
-    // -----------------------------------------------------------------
-    // removeDamaged
-    // -----------------------------------------------------------------
-
+  
     @Test
     @DisplayName("removeDamaged should decrease onHand when amount is valid")
     void removeDamaged_valid_decreasesOnHand() {
@@ -178,9 +167,7 @@ class ProductStockTest {
         assertThrows(IllegalStateException.class, () -> stock.removeDamaged(1000));
     }
 
-    // -----------------------------------------------------------------
-    // reserve
-    // -----------------------------------------------------------------
+   
 
     @Test
     @DisplayName("reserve should increase reserved and decrease available")
@@ -216,9 +203,7 @@ class ProductStockTest {
                 () -> stock.reserve(stock.getAvailable() + 1));
     }
 
-    // -----------------------------------------------------------------
-    // releaseReservation
-    // -----------------------------------------------------------------
+   
 
     @Test
     @DisplayName("releaseReservation should decrease reserved")
@@ -252,10 +237,7 @@ class ProductStockTest {
         assertThrows(IllegalStateException.class, () -> stock.releaseReservation(10));
     }
 
-    // -----------------------------------------------------------------
-    // shipReserved
-    // -----------------------------------------------------------------
-
+  
     @Test
     @DisplayName("shipReserved should remove units from both onHand and reserved")
     void shipReserved_valid_decreasesOnHandAndReserved() {
@@ -294,9 +276,7 @@ class ProductStockTest {
         assertThrows(IllegalStateException.class, () -> stock.shipReserved(20));
     }
 
-    // -----------------------------------------------------------------
-    // isReorderNeeded
-    // -----------------------------------------------------------------
+ 
 
     @Test
     @DisplayName("isReorderNeeded returns true when available < threshold")
@@ -349,9 +329,7 @@ class ProductStockTest {
                 () -> stock.updateReorderThreshold(stock.getMaxCapacity() + 1));
     }
 
-    // -----------------------------------------------------------------
-    // updateMaxCapacity
-    // -----------------------------------------------------------------
+  
 
     @Test
     @DisplayName("updateMaxCapacity should update capacity when new value is valid")
@@ -388,10 +366,7 @@ class ProductStockTest {
         );
     }
 
-    // -----------------------------------------------------------------
-    // Nested tests example
-    // -----------------------------------------------------------------
-
+   
     @Nested
     @DisplayName("When stock is freshly initialized")
     class WhenFreshStock {
@@ -407,9 +382,6 @@ class ProductStockTest {
         }
     }
 
-    // -----------------------------------------------------------------
-    // Timeout & Disabled examples
-    // -----------------------------------------------------------------
 
     @Test
     @Timeout(1)
@@ -420,7 +392,7 @@ class ProductStockTest {
         stock.releaseReservation(5); // reserved 5 → 0
         stock.removeDamaged(5); // 60 → 55
 
-        // Correct expected value = 55
+       
         assertEquals(55, stock.getOnHand());
     }
 
@@ -428,6 +400,6 @@ class ProductStockTest {
     @Disabled("Backorder feature not implemented yet")
     @DisplayName("Future feature: backorder when stock is negative")
     void futureFeature_backorder_notImplementedYet() {
-        // Not implemented yet
+       
     }
 }
